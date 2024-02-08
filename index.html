@@ -82,12 +82,14 @@
 </div>
 
 <div class="select-date">
-
+<!--
   <input id="dec" type="button" value="-" onclick="filterDec()" />
   <input id="inc" type="button" value="+" onclick="filterAdd()" />
   <br>
 
   <input id="slider" type="range" min="0" max="616" step="1" value="0" />
+
+  -->
   <!--
 <select id="year" name="year"></select>
 <select id="month" name="month"></select>
@@ -103,9 +105,10 @@
     <option value="5d">display data for 5 days before and after</option>
  
     </select>
-  -->
+ 
 
   <div id="sdate"></div>
+   -->
 </div>
 
 <div class='map-overlay' id='legend'><b>Virus detection values in sewage water Increase/decrease trend</b><br>Copies/L indicates viral load in wastewater analyzed by PCR <br> <hR> </div>
@@ -195,9 +198,9 @@ function filterBy(dated) {
         }
 
         
-        map.setFilter('samplepoint_layer', filter_method);
+      //  map.setFilter('samplepoint_layer', filter_method);
         
-        map.setFilter('sample-values', filter_method);
+     //   map.setFilter('sample-values', filter_method);
 
         document.getElementById('sdate').textContent = startdate.toLocaleDateString() ;
         // Set the label to the month
@@ -380,11 +383,11 @@ var symurl = "https://raw.githubusercontent.com/yoichigmf/lhazardmap/develop/ico
        // img = await loadImageAsPromise(map, sym['icon']);
 
         // Add a source for the state polygons.
-        map.addSource('sew', {
-            'type': 'geojson',
-            'data': 'data/bandung_sew.geojson'
+       // map.addSource('sew', {
+        //    'type': 'geojson',
+        //    'data': 'data/bandung_sew.geojson'
          //   'data': 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1_states_provinces_shp.geojson'
-        });
+        //});
 
 
         
@@ -473,7 +476,7 @@ var symurl = "https://raw.githubusercontent.com/yoichigmf/lhazardmap/develop/ico
         // Add a source for the state polygons.
         map.addSource('timeline', {
             'type': 'geojson',
-            'data': 'data/timeline.geojson'
+            'data': 'data/timelinae_cambodia.geojson'
          
         });
 
@@ -484,22 +487,12 @@ var symurl = "https://raw.githubusercontent.com/yoichigmf/lhazardmap/develop/ico
             'source': 'timeline',
             
             'paint': {
-                        'circle-color': [
-                            'interpolate',
-                            ['linear'],
-                            ['get', 'color'],
-                            1,
-                            '#90EE90',    //  light greeen  decreasing
-                            2,
-                            '#FFFF00',   // yellow   stable
-                            3,
-                            '#8B0000',   //  dark red  increasing
-
-                        ],
+                        'circle-color':  '#FFFF00',   // yellow   stable
+                        
                         'circle-opacity': 0.75,
                         'circle-radius': [
                     'step',
-                    ['get', 'radius'],
+                    ['get', 'clog'],
                     10,
                     1,
                     20,
@@ -536,8 +529,10 @@ var symurl = "https://raw.githubusercontent.com/yoichigmf/lhazardmap/develop/ico
                     'layout': {
                         'text-field': [
                             'concat',
-                            ['to-string', ['get', 'value']],
-                            ' Copies/L'
+                            ['to-string', ['get', 'CDC N1']],
+                            ' '
+                           
+
                         ],
                         'text-font': [
                             'Open Sans Bold',
